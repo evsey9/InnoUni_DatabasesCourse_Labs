@@ -44,7 +44,7 @@ INSERT INTO customerOrders SELECT orderId, customerId, date FROM orders GROUP BY
 -- Do the exercise queries
 
 -- First query
-SELECT orderId, SUM(quantity * price) 
+SELECT orderId, SUM(quantity * price) as "total_cost", SUM(quantity) as "total_items" 
 FROM itemOrders 
 JOIN items ON itemOrders.itemId=items.itemId
 GROUP BY orderId;
