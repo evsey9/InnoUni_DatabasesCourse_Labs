@@ -9,6 +9,7 @@ CREATE INDEX IF NOT EXISTS idx_rental_customer_rental_date
 ON rental (customer_id, rental_date)
 WHERE (rental_date >= '2023-01-01')
 AND (rental_date < '2023-02-01');
+CREATE INDEX IF NOT EXISTS idx_inventory_inventory_film ON inventory (film_id, inventory_id);
 
 CREATE INDEX IF NOT EXISTS idx_rental_inventory_rental_date
 ON rental (inventory_id, rental_date)
