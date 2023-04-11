@@ -1,0 +1,26 @@
+// First part
+MATCH (f1:Fighter)-[:beats]->(f2:Fighter)
+WHERE f1.weight IN [155, 170, 185]
+RETURN f1.weight, collect(f1.name) as fighters;
+
+// Second part
+MATCH (f1:Fighter)-[:BEAT]->(f2:Fighter)-[:BEAT]->(f1)
+WHERE f1.name < f2.name
+RETURN f1.name, f2.name, count(*) as record;
+
+// Third part
+MATCH (f:Fighter)
+OPTIONAL MATCH (f)-[:BEAT]->(opponent:Fighter)
+OPTIONAL MATCH (f)<-[:BEAT]-(opponent2:Fighter)
+WITH f, count(opponent) + count(opponent2) as num_matches
+RETURN f.name, num_matches
+ORDER BY num_matches DESC LIMIT 1
+
+// Fourth part
+MATCH (f:Fighter)
+WHERE NOT EXISTS((f)-[:BEAT]->())
+RETURN collect(f.name) as fighters // Defeated fighters
+UNION
+MATCH (f:Fighter)
+WHERE NOT EXISTS(()-[:BEAT]->(f))
+RETURN collect(f.name) as fighters // Undefeated fighters
