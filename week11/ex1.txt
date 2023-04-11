@@ -1,0 +1,51 @@
+CREATE (khabib:Fighter {name:'Khabib Nurmagomedov', weight:155});
+CREATE (dosAnjos:Fighter {name:'Rafael Dos Anjos', weight:155});
+CREATE (magny:Fighter {name:'Neil Magny', weight:170});
+CREATE (jones:Fighter {name:'Jon Jones', weight:205});
+CREATE (cormier:Fighter {name:'Daniel Cormier', weight:205});
+CREATE (bisping:Fighter {name:'Michael Bisping', weight:185});
+CREATE (hamill:Fighter {name:'Matt Hamill', weight:185});
+CREATE (vera:Fighter {name:'Brandon Vera', weight:205});
+CREATE (mir:Fighter {name:'Frank Mir', weight:230});
+CREATE (lesnar:Fighter {name:'Brock Lesnar', weight:230});
+CREATE (gastelum:Fighter {name:'Kelvin Gastelum', weight:185}); 
+
+
+
+MATCH (khabib:Fighter {name:'Khabib Nurmagomedov'}), (dosAnjos:Fighter {name:'Rafael Dos Anjos'})
+CREATE (khabib)-[:BEAT]->(dosAnjos);
+
+MATCH (dosAnjos:Fighter {name:'Rafael Dos Anjos'}), (magny:Fighter {name:'Neil Magny'})
+CREATE (dosAnjos)-[:BEAT]->(magny);
+
+MATCH (jones:Fighter {name:'Jon Jones'}), (cormier:Fighter {name:'Daniel Cormier'})
+CREATE (jones)-[:BEAT]->(cormier);
+
+MATCH (bisping:Fighter {name:'Michael Bisping'}), (hamill:Fighter {name:'Matt Hamill'})
+CREATE (bisping)-[:BEAT]->(hamill);
+
+MATCH (jones:Fighter {name:'Jon Jones'}), (vera:Fighter {name:'Brandon Vera'})
+CREATE (jones)-[:BEAT]->(vera);
+
+MATCH (vera:Fighter {name:'Brandon Vera'}), (mir:Fighter {name:'Frank Mir'})
+CREATE (vera)-[:BEAT]->(mir);
+
+MATCH (mir:Fighter {name:'Frank Mir'}), (lesnar:Fighter {name:'Brock Lesnar'})
+CREATE (mir)-[:BEAT]->(lesnar);
+
+MATCH (magny:Fighter {name:'Neil Magny'}), (gastelum:Fighter {name:'Kelvin Gastelum'})
+CREATE (magny)-[:BEAT]->(gastelum);
+
+MATCH (gastelum:Fighter {name:'Kelvin Gastelum'}), (bisping:Fighter {name:'Michael Bisping'})
+CREATE (gastelum)-[:BEAT]->(bisping);
+
+MATCH (bisping:Fighter {name:'Michael Bisping'}), (hamill:Fighter {name:'Matt Hamill'})
+CREATE (bisping)-[:BEAT]->(hamill);
+
+MATCH (hamill:Fighter {name:'Matt Hamill'}), (jones:Fighter {name:'Jon Jones'})
+CREATE (hamill)-[:BEAT]->(jones);
+
+
+
+MATCH (jones:Fighter {name:'Jon Jones'})-[:BEAT*]->(opponent:Fighter)
+RETURN opponent.name;
