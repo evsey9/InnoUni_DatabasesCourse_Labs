@@ -19,6 +19,9 @@ AND (rental_date < '2023-02-01');
 -- Query 3
 CREATE INDEX IF NOT EXISTS idx_rental_last_update_customer_id_active
 ON rental (last_update DESC, customer_id);
+CREATE INDEX IF NOT EXISTS idx_rental_customer_id_last_update ON rental (customer_id, last_update);
+CREATE INDEX IF NOT EXISTS idx_payment_rental_id_payment_date_amount ON payment (rental_id, payment_date, amount);
+CREATE INDEX IF NOT EXISTS idx_rental_rental_id_last_update_staff_id ON rental (rental_id, last_update, staff_id); 
 
 -- Query 4
 CREATE INDEX IF NOT EXISTS idx_film_rental_rate_length ON film (rental_rate DESC, length ASC)
